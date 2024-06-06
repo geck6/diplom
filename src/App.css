@@ -1,38 +1,285 @@
-.App {
-  text-align: center;
+.Nav_button {
+  color: rgb(255, 255, 255);
+  font-weight: 800;
+  text-decoration: none;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+
+html {
+  height: 100%;
+  overflow: hidden;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+
+.inpt{
+  background-color: rgb(255, 255, 255);
+  color: rgb(107, 11, 218);;
+  position: absolute;
+  top: 120px;
+  left: 720px;
+  height:40px;
+  width:450px;
+}
+.Pcol{
+  background-color: rgb(255, 255, 255);
+  color: rgb(107, 11, 218);
+  position: absolute;
+  top: 290px;
+  left: 60px;
+  height:40px;
+  width:450px;
+}
+.Pcol1{
+  background-color: rgb(255, 255, 255);
+  color: rgb(107, 11, 218);
+  position: absolute;
+  top: 290px;
+  left: 700px;
+  height:30px;
+  width:450px;
+}
+.Pinpt{
+  background-color: rgb(255, 255, 255);
+  color: rgb(107, 11, 218);
+  position: absolute;
+  top: 70px;
+  left: 720px;
+  height:40px;
+  width:450px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+.selCat{
+  width:450px;
+}
+.selCat1{
+  width:450px;
+  position: absolute;
+  top: 30px;
+  left: 0px;
+}
+
+.her{
   color: white;
 }
+.toolbr {
+  margin: 0 auto;
 
-.App-link {
-  color: #61dafb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+/* .butHome{
+  background-color: rgb(238, 121, 78);
+  color: white;
+  position: absolute;
+  top: 150px;
+  left: 50px;
+  height:40px;
+  width:200px;
+} */
+
+/*button home1*/
+.pushable {
+  position: relative;
+  top: 150px;
+  left: 50px;
+  background: transparent;
+  padding: 0px;
+  border: none;
+  cursor: pointer;
+  outline-offset: 4px;
+  outline-color: deeppink;
+  transition: filter 250ms;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+.shadow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: hsl(27, 92%, 44%);
+  border-radius: 8px;
+  filter: blur(2px);
+  will-change: transform;
+  transform: translateY(2px);
+  transition: transform 600ms cubic-bezier(0.3, 0.7, 0.4, 1);
+}
+
+.edge {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  border-radius: 8px;
+  background: linear-gradient(
+    to right,
+    hsl(248, 39%, 39%) 0%,
+    hsl(248, 39%, 49%) 8%,
+    hsl(248, 39%, 39%) 92%,
+    hsl(248, 39%, 29%) 100%
+  );
+}
+
+.front {
+  display: block;
+  position: relative;
+  border-radius: 8px;
+  background: hsl(29, 82%, 49%);
+  padding: 16px 32px;
+  color: white;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-size: 1rem;
+  transform: translateY(-4px);
+  transition: transform 600ms cubic-bezier(0.3, 0.7, 0.4, 1);
+}
+
+.pushable:hover {
+  filter: brightness(110%);
+}
+
+.pushable:hover .front {
+  transform: translateY(-6px);
+  transition: transform 250ms cubic-bezier(0.3, 0.7, 0.4, 1.5);
+}
+
+.pushable:active .front {
+  transform: translateY(-2px);
+  transition: transform 34ms;
+}
+
+.pushable:hover .shadow {
+  transform: translateY(4px);
+  transition: transform 250ms cubic-bezier(0.3, 0.7, 0.4, 1.5);
+}
+
+.pushable:active .shadow {
+  transform: translateY(1px);
+  transition: transform 34ms;
+}
+
+.pushable:focus:not(:focus-visible) {
+  outline: none;
+}
+
+
+
+.happyface {
+  background-image: url("images/kjuj.png");
+  height: 43px;
+  width: 50px;
+
+}
+/*button home2*/
+.btn-conteiner {
+  display: flex;
+  position: relative;
+  top: 650px;
+  left: 660px;
+  justify-content: center;
+  --color-text: #ffffff;
+  --color-background: hsl(27, 92%, 44%);
+  --color-outline: hsl(27, 92%, 44%);
+  --color-shadow: #00000080;
+}
+
+.btn-content {
+  display: flex;
+  align-items: center;
+  padding: 5px 30px;
+  text-decoration: none;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 30px;
+  color: var(--color-text);
+  background: var(--color-background);
+  transition: 1s;
+  border-radius: 100px;
+  box-shadow: 0 0 0.2em 0 var(--color-background);
+}
+
+.btn-content:hover, .btn-content:focus {
+  transition: 0.5s;
+  -webkit-animation: btn-content 1s;
+  animation: btn-content 1s;
+  outline: 0.1em solid transparent;
+  outline-offset: 0.2em;
+  box-shadow: 0 0 0.4em 0 var(--color-background);
+}
+
+.btn-content .icon-arrow {
+  transition: 0.5s;
+  margin-right: 0px;
+  transform: scale(0.6);
+}
+
+.btn-content:hover .icon-arrow {
+  transition: 0.5s;
+  margin-right: 25px;
+}
+
+.icon-arrow {
+  width: 20px;
+  margin-left: 15px;
+  position: relative;
+  top: 6%;
+}
+  
+/* SVG */
+#arrow-icon-one {
+  transition: 0.4s;
+  transform: translateX(-60%);
+}
+
+#arrow-icon-two {
+  transition: 0.5s;
+  transform: translateX(-30%);
+}
+
+.btn-content:hover #arrow-icon-three {
+  animation: color_anim 1s infinite 0.2s;
+}
+
+.btn-content:hover #arrow-icon-one {
+  transform: translateX(0%);
+  animation: color_anim 1s infinite 0.6s;
+}
+
+.btn-content:hover #arrow-icon-two {
+  transform: translateX(0%);
+  animation: color_anim 1s infinite 0.4s;
+}
+
+/* SVG animations */
+@keyframes color_anim {
+  0% {
+    fill: white;
   }
-  to {
-    transform: rotate(360deg);
+
+  50% {
+    fill: var(--color-background);
+  }
+
+  100% {
+    fill: white;
+  }
+}
+
+/* Button animations */
+@-webkit-keyframes btn-content {
+  0% {
+    outline: 0.2em solid var(--color-background);
+    outline-offset: 0;
+  }
+}
+
+@keyframes btn-content {
+  0% {
+    outline: 0.2em solid var(--color-background);
+    outline-offset: 0;
   }
 }
