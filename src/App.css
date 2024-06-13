@@ -10,15 +10,19 @@ html {
   overflow: hidden;
 }
 
+.container{
+  background-color: white;
+}
+.retCol{
+  background-color: white;
+}
 
-.inpt{
-  background-color: rgb(255, 255, 255);
-  color: rgb(107, 11, 218);;
+
+.ddv{
+  background-color: white;
   position: absolute;
-  top: 120px;
-  left: 720px;
-  height:40px;
-  width:450px;
+  top: 100px;
+  left: 300px;
 }
 .Pcol{
   background-color: rgb(255, 255, 255);
