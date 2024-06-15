@@ -1,5 +1,7 @@
 import * as XLSX from 'xlsx';
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { Puff } from "react-loader-spinner";
 
 
 
@@ -8,8 +10,13 @@ function Home() {
     const [values, setValues] = useState([]);
     const [selectedHeader, setSelectedHeader] = useState(null);
     const [selectedValue, setSelectedValue] = useState(null);
+    const [compareHeader, setCompareHeader] = useState(null);
+    const [compareValue, setCompareValue] = useState(null);
     const [result, setResult] = useState(null);
+    const [compareResult, setCompareResult] = useState(null);
     const [jsonData, setJsonData] = useState(null);
+    const [isCompareMode, setIsCompareMode] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     // Преобразование обозначений Excel в индекс строки и колонки
     const excelToIndex = (excel) => {
@@ -35,6 +42,7 @@ function Home() {
     const valuesRange = excelToIndex('A5:DH5'); // Задаем диапазон значений
 
     const handleFileUpload = (event) => {
+        setIsLoading(true); // начинаем загрузку
         const file = event.target.files[0];
         const reader = new FileReader();
 
@@ -61,6 +69,7 @@ function Home() {
             setJsonData(data);
             setHeaders(headerData);
             setValues(valueData);
+            setIsLoading(false);
         };
 
         reader.readAsBinaryString(file);
@@ -74,21 +83,48 @@ function Home() {
         setSelectedValue(event.target.value);
     };
 
-    const findResult = () => {
+    const findResult = (header, value, setResult) => {
         // Ищем индекс выбранного заголовка и значения
-        const headerIndex = headers.findIndex(header => header === selectedHeader);
-        const valueIndex = values.findIndex(value => value === selectedValue);
+        const headerIndex = headers.findIndex(h => h === header);
+        const valueIndex = values.findIndex(v => v === value);
 
         // Ищем результат в данных
         const result = jsonData[headerIndex + headersRange.startRow][valueIndex + valuesRange.startColumn];
         setResult(result);
     };
 
+    const handleCompare = () => {
+        setIsCompareMode(true);
+    };
+    localStorage.setItem('result', result);
+    localStorage.setItem('compareResult', compareResult);
+
+
     return (
         <div>
-            <input type="file" accept=".xlsx" onChange={handleFileUpload} />
+            <input  className="btn2" type="file" onChange={handleFileUpload} />
+            {isLoading && (
+                <div aria-label="Orange and tan hamster running in a metal wheel" role="img" className="wheel-and-hamster">
+                    <div className="wheel"></div>
+                    <div className="hamster">
+                        <div className="hamster__body">
+                            <div className="hamster__head">
+                                <div className="hamster__ear"></div>
+                                <div className="hamster__eye"></div>
+                                <div className="hamster__nose"></div>
+                            </div>
+                            <div className="hamster__limb hamster__limb--fr"></div>
+                            <div className="hamster__limb hamster__limb--fl"></div>
+                            <div className="hamster__limb hamster__limb--br"></div>
+                            <div className="hamster__limb hamster__limb--bl"></div>
+                            <div className="hamster__tail"></div>
+                        </div>
+                    </div>
+                    <div className="spoke"></div>
+                </div>
+            )}
 
-            <select onChange={handleHeaderChange}>
+            <select className="btn3" onChange={e => setSelectedHeader(e.target.value)}>
                 {headers.map((header, index) => (
                     <option key={index} value={header}>
                         {header}
@@ -96,7 +132,7 @@ function Home() {
                 ))}
             </select>
 
-            <select onChange={handleValueChange}>
+            <select  className="btn4" onChange={e => setSelectedValue(e.target.value)}>
                 {values.map((value, index) => (
                     <option key={index} value={value}>
                         {value}
@@ -104,10 +140,56 @@ function Home() {
                 ))}
             </select>
 
-            <button onClick={findResult}>Найти результат</button>
+            <button className="btn5" onClick={() => findResult(selectedHeader, selectedValue, setResult)}>Найти результат</button>
 
-            {result && <p>Результат: {result}</p>}
+            {result && <p className="pHome">Результат: {result}</p>}
+
+            {isCompareMode && (
+                <>
+                    <select style={{position: 'abcolute', top: '1 px', left: '1%'}} className="btn1" onChange={e => setCompareHeader(e.target.value)}>
+                        {headers.map((header, index) => (
+                            <option key={index} value={header}>
+                                {header}
+                            </option>
+                        ))}
+                    </select>
+
+                    <select style={{position: 'abcolute', top: '1 px', left: '1%'}} className="btn1" onChange={e => setCompareValue(e.target.value)}>
+                        {values.map((value, index) => (
+                            <option key={index} value={value}>
+                                {value}
+                            </option>
+                        ))}
+                    </select>
+
+                    <button className="btn1" onClick={() => findResult(compareHeader, compareValue, setCompareResult)}>Сравнить с другим результатом</button>
+                </>
+            )}
+
+
+            {compareResult && <p className='pHome2'>Новый результат: {compareResult}</p>}
+
+
+            {!isCompareMode && <button className="btn6" onClick={handleCompare}>Найти новый результат</button>}
+
+
+
+            {(result || compareResult) && (
+                <Link className='lHome'
+                    to={{
+                        pathname: "/export",
+                        state: {
+                            result: result,
+                            compareResult: compareResult
+                        }
+                    }}
+                >
+                    Экспорт
+                </Link>
+            )}
+
         </div>
+
     );
 };
 
